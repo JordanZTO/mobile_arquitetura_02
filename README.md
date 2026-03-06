@@ -1,16 +1,17 @@
-# product_app
+# Questionário de Reflexão — Atividade 2
 
-A new Flutter project.
+## 1. Em qual camada foi implementado o mecanismo de cache?
 
-## Getting Started
+O mecanismo de cache foi implementado na **camada de Data**, na classe `ProductCacheDatasource`. Essa decisão é adequada porque a camada de Data é responsável por gerenciar as fontes de dados da aplicação, como API, cache ou banco de dados. Assim, a lógica de armazenamento temporário fica separada da interface e da lógica de negócio, mantendo o projeto organizado.
 
-This project is a starting point for a Flutter application.
+## 2. Por que o ViewModel não deve realizar chamadas HTTP diretamente?
 
-A few resources to get you started if this is your first Flutter project:
+O ViewModel pertence à camada de **Presentation**, cuja responsabilidade é apenas controlar o estado da interface. As chamadas HTTP devem ser feitas na camada de **Data**, através do repositório. Isso mantém o código desacoplado, facilita testes e permite trocar a fonte de dados sem alterar a interface.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## 3. O que poderia acontecer se a interface acessasse diretamente o DataSource?
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Se a interface acessasse diretamente o DataSource, haveria um forte **acoplamento entre a interface e a camada de dados**. Isso tornaria o código mais difícil de manter, testar e modificar. Além disso, qualquer mudança na forma de obtenção dos dados poderia exigir alterações na interface.
+
+## 4. Como essa arquitetura facilitaria a substituição da API por um banco de dados local?
+
+Essa arquitetura facilita a substituição porque o ViewModel depende apenas da **interface `ProductRepository`**, e não de uma implementação específica. Assim, seria possível criar uma nova implementação do repositório usando um banco de dados local, sem precisar alterar a interface ou o ViewModel.
